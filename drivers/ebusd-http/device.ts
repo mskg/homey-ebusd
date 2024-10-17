@@ -2,19 +2,21 @@
 
 import Homey from 'homey';
 import axios from 'axios';
-import config from './driver.compose.json';
+// import config from './driver.compose.json';
+import { FIELDS } from './fields';
 
 module.exports = class extends Homey.Device {
 
   pollingTask: NodeJS.Timeout | undefined;
+  configureTask: NodeJS.Timeout | undefined;
 
   async onInit() {
     this.log('HTTP Device has been initialized');
 
-    // during debug
-    await Promise.all(
-      config.capabilities.map((c: string) => this.addCapability(c)),
-    );
+    // // during debug
+    // await Promise.all(
+    //   config.capabilities.map((c: string) => this.addCapability(c)),
+    // );
 
     await this.startPolling();
   }
@@ -39,6 +41,7 @@ module.exports = class extends Homey.Device {
   async startPolling() {
     // Clear any existing intervals
     if (this.pollingTask) this.homey.clearInterval(this.pollingTask);
+    if (this.configureTask) this.homey.clearInterval(this.configureTask);
 
     const refreshInterval = this.getSetting('interval') < 10
       ? 10 // refresh interval in seconds minimum 10
@@ -46,36 +49,73 @@ module.exports = class extends Homey.Device {
 
     this.log('Interval is', refreshInterval);
 
-    await this.fetchData();
-
     // Set up a new interval
     this.pollingTask = this.homey.setInterval(this.fetchData.bind(this), refreshInterval * 1000);
+
+    // every hour
+    this.configureTask = this.homey.setInterval(this.configurePolling.bind(this), 60 * 60 * 1000);
+
+    await this.configurePolling();
+    await this.fetchData();
   }
 
-  // eslint-disable-next-line no-empty-function
+  // eslint-disable-next-line no-empty-function, @typescript-eslint/no-explicit-any
   async setCapabilities(data: any) {
-    this.log('Fetched', data);
+    // this.log('Fetched', data);
+    const waits = FIELDS.map(async (f) => {
+      let value = null;
 
-    await Promise.all([
-      this.setCapabilityValue('measure_temperature.inlet', data.bai.messages.Status01.fields['0'].value),
-      this.setCapabilityValue('measure_temperature.outlet', data.bai.messages.Status01.fields['1'].value),
-      this.setCapabilityValue('measure_temperature.outdoor', data.bai.messages.Status01.fields['2'].value),
-      this.setCapabilityValue('measure_temperature.storage', data.bai.messages.Status01.fields['4'].value),
+      try {
+        // eslint-disable-next-line prefer-destructuring
+        value = data[f.circuit]['messages'][f.name]['fields'][f.field]['value'];
+      } catch (e) {
+        this.log('Could not read', f);
+        return;
+      }
 
-      this.setCapabilityValue('target_temperature.inlet', data['430'].messages.Hc1ActualFlowTempDesired.fields.temp1.value),
+      // number
+      if (f.factor) {
+        value *= f.factor;
+      }
 
-      this.setCapabilityValue('target_temperature.storage', data.bai.messages.Status02.fields['1'].value),
-      this.setCapabilityValue('thermostat_mode.storage', data['430'].messages.HwcOPMode.fields['0'].value),
+      // boolean
+      if (f.compare) {
+        // eslint-disable-next-line eqeqeq
+        value = value == f.compare;
+      }
 
-      this.setCapabilityValue('target_temperature.heating_1', data['430'].messages.ActualRoomTempDesiredHc1.fields.temp.value),
-      this.setCapabilityValue('thermostat_mode.heating_1', data['430'].messages.Hc1OPMode.fields['0'].value),
+      try {
+        this.log('Mapping', f.circuit, f.name, f.field, 'to', f.target, 'with', value);
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        await this.setCapabilityValue(f.target, value);
+      } catch (e) {
+        this.log('Could not write', f.target, e);
+      }
+    });
 
-      this.setCapabilityValue('onoff.flame', data.bai.messages.Flame.fields['0'].value === 'on'),
-      this.setCapabilityValue('onoff.heating_1_pump', data.bai.messages.StatusCirPump.fields['0'].value === 'on'),
+    await Promise.all(waits);
+  }
 
-      this.setCapabilityValue('measure_pressure.water', data.bai.messages.WaterPressure.fields.press.value * 1000),
-      this.setCapabilityValue('ebusd_heating_curve.heating_1', data['430'].messages.Hc1HeatCurve.fields.curve.value),
-    ]);
+  async configurePolling() {
+    const ip = this.getSetting('ip');
+    const port = this.getSetting('port');
+
+    const uniqueFields = FIELDS
+      // map to url
+      .map((f) => `http://${ip}:${port}/data/${f.circuit}/${f.name}?poll=1&exact=true`)
+      // preserve only unique values
+      .filter((v, i, a) => a.indexOf(v) === i);
+
+    const waits = uniqueFields.map(async (u) => {
+      try {
+        this.log('Configuring', u);
+        await axios.get(u);
+      } catch (e) {
+        this.log('Failed to query', u, e);
+      }
+    });
+
+    await Promise.all(waits);
   }
 
   async fetchData() {
@@ -99,7 +139,7 @@ module.exports = class extends Homey.Device {
       );
 
       await this.setCapabilities(response.data);
-    } catch (error: any) {
+    } catch (error) {
       this.error('Failed to fetch data:', error);
     }
   }
@@ -109,6 +149,7 @@ module.exports = class extends Homey.Device {
 
     // Clear the interval when the device is deleted
     this.homey.clearInterval(this.pollingTask);
+    this.homey.clearInterval(this.configureTask);
   }
 
 };

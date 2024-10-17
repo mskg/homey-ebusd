@@ -42,6 +42,12 @@
           "title": {
             "en": "Manual"
           }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
         }
       ],
       "icon": "/assets/mode.svg"
@@ -63,6 +69,12 @@
           "id": "manual",
           "title": {
             "en": "Manual"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
           }
         }
       ],
