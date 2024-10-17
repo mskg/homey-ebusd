@@ -1,0 +1,235 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "app.mskg.homey-ebusd-vaillant",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "eBUSd Vaillant"
+  },
+  "description": {
+    "en": "Adds support for MyBrand devices."
+  },
+  "category": [
+    "climate"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Markus Kling",
+    "email": "markus.kling@gmail.com"
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "eBUSd HTTP"
+      },
+      "class": "heater",
+      "capabilities": [
+        "measure_temperature.inlet",
+        "measure_temperature.outlet",
+        "measure_temperature.storage",
+        "measure_temperature.outdoor",
+        "target_temperature.inlet",
+        "target_temperature.storage",
+        "thermostat_mode.storage",
+        "target_temperature.heating_1",
+        "thermostat_mode.heating_1",
+        "onoff.flame",
+        "onoff.heating_1_pump",
+        "measure_pressure.water",
+        "ebusd_heating_curve.heating_1"
+      ],
+      "capabilitiesOptions": {
+        "thermostat_mode.storage": {
+          "title": {
+            "en": "Heating Mode Storage"
+          },
+          "setable": false,
+          "uiComponent": "sensor",
+          "values": [
+            {
+              "id": "auto",
+              "title": {
+                "en": "Automatic"
+              }
+            },
+            {
+              "id": "manual",
+              "title": {
+                "en": "Manual"
+              }
+            }
+          ],
+          "icon": "/assets/mode.svg"
+        },
+        "thermostat_mode.heating_1": {
+          "title": {
+            "en": "Heating Mode Circuit 1"
+          },
+          "setable": false,
+          "uiComponent": "sensor",
+          "values": [
+            {
+              "id": "auto",
+              "title": {
+                "en": "Automatic"
+              }
+            },
+            {
+              "id": "manual",
+              "title": {
+                "en": "Manual"
+              }
+            }
+          ],
+          "icon": "/assets/mode.svg"
+        },
+        "measure_pressure.water": {
+          "title": {
+            "en": "Water Pressure"
+          }
+        },
+        "onoff.heating_1_pump": {
+          "title": {
+            "en": "Pump Circuit 1"
+          },
+          "settable": false,
+          "uiQuickAction": false,
+          "uiComponent": "button"
+        },
+        "onoff.flame": {
+          "title": {
+            "en": "Flame"
+          },
+          "settable": false,
+          "uiQuickAction": false,
+          "uiComponent": "button"
+        },
+        "measure_temperature.inlet": {
+          "title": {
+            "en": "Inlet Temperature"
+          }
+        },
+        "measure_temperature.outlet": {
+          "title": {
+            "en": "Outlet Temperature"
+          }
+        },
+        "measure_temperature.outdoor": {
+          "title": {
+            "en": "Outdoor Temperature"
+          }
+        },
+        "measure_temperature.storage": {
+          "title": {
+            "en": "Storage Temperature"
+          }
+        },
+        "target_temperature.inlet": {
+          "title": {
+            "en": "Target Temperature Inlet"
+          },
+          "max": 85,
+          "setable": false
+        },
+        "target_temperature.storage": {
+          "title": {
+            "en": "Target Temperature Storage"
+          },
+          "max": 85,
+          "setable": false
+        },
+        "target_temperature.heating_1": {
+          "title": {
+            "en": "Target Temperature Circuit 1"
+          },
+          "max": 85,
+          "setable": false
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "pair": [
+        {
+          "id": "enter_id"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "id": "ip",
+          "type": "text",
+          "label": {
+            "en": "IP Address"
+          },
+          "value": "",
+          "hint": {
+            "en": "The internal IP of the device."
+          }
+        },
+        {
+          "id": "port",
+          "type": "text",
+          "label": {
+            "en": "Port"
+          },
+          "value": "80",
+          "hint": {
+            "en": "The port"
+          }
+        },
+        {
+          "id": "interval",
+          "type": "number",
+          "label": {
+            "en": "Interval"
+          },
+          "value": 60,
+          "hint": {
+            "en": "the refresh interval in seconds, minimum once every 10 seconds"
+          }
+        }
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/ebusd-http/assets/images/small.png",
+        "large": "/drivers/ebusd-http/assets/images/large.png",
+        "xlarge": "/drivers/ebusd-http/assets/images/xlarge.png"
+      },
+      "id": "ebusd-http"
+    }
+  ],
+  "capabilities": {
+    "ebusd_heating_curve": {
+      "type": "number",
+      "title": {
+        "en": "Heating Curve"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "min": 0,
+      "max": 5,
+      "icon": "/assets/curve.svg"
+    }
+  }
+}

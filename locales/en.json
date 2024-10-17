@@ -1,0 +1,14 @@
+{
+    "pair": {
+        "start": {
+            "ip": "Hostname",
+            "port": "Port",
+            "error": "An error has occurred.",
+            "intro": "Enter device ip and port for the HTTP protocol",
+            "required": "IP is required.",
+            "saveSettings": "Save settings",
+            "title": "Connect your eBUSd instance",
+            "not_found": "Could not find eBUSd."
+        }
+    }
+}
