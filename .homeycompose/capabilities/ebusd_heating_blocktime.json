@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Reminaing Block Time"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/time.svg",
+  "insights": false
+}

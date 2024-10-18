@@ -24,11 +24,10 @@
     function saveSettings() {
 
         // variables
-        var ip = document.getElementById('ip').value;
-        var port = document.getElementById('port').value;
+        var hostname = document.getElementById('hostname').value;
 
         // IP is required
-        if (ip == "") {
+        if (hostname == "") {
             // Give error, required values
             Homey.alert(__('pair.start.required'), 'error');
             return;
@@ -36,8 +35,7 @@
 
         // Build data array
         var data = {
-          ip: ip,
-          port: port,
+            hostname: hostname
         };
 
         // Continue to back-end, pass along data
@@ -61,12 +59,8 @@
 
 <table class="pairSettings">
     <tr>
-        <td style="width:100px;" data-i18n="pair.start.ip">IP</td>
-        <td><input id="ip" type="text" pattern="^(\d+)$" placeholder="192.168.0.1" /></td>
-    </tr>
-    <tr>
-        <td style="width:100px;" data-i18n="pair.start.port">Port</td>
-        <td><input id="port" type="text" pattern="^(\d+)$" placeholder="80" /></td>
+        <td style="width:100px;" data-i18n="pair.start.hostname">hostname</td>
+        <td><input id="hostname" type="text" placeholder="" /></td>
     </tr>
 </table>
 

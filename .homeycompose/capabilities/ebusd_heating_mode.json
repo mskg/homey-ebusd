@@ -1,0 +1,33 @@
+{
+  "type": "enum",
+
+  "title": {
+    "en": "Heating Mode"
+  },
+  
+  "getable": true,
+  "setable": true,
+
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off"
+      }
+    }
+  ],
+  "icon": "/assets/flame.svg"
+}

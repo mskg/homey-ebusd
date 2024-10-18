@@ -3,10 +3,17 @@
   "title": {
     "en": "Heating Curve"
   },
+
   "getable": true,
-  "setable": false,
+  "setable": true,
+  
   "uiComponent": "sensor",
-  "min": 0,
-  "max": 5,
-  "icon": "/assets/curve.svg"
+  
+  "min": 0.2,
+  "max": 2,
+  "step": 0.1,
+  "decimals": 1,
+
+  "icon": "/assets/curve.svg",
+  "insights": true
 }

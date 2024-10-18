@@ -1,105 +1,58 @@
 {
   "name": {
-    "en": "eBUSd HTTP"
+    "en": "eBUSd TCP"
   },
   "class": "heater",
   "capabilities": [
+    "measure_temperature.outdoor",
+    "measure_temperature.target_inlet",
     "measure_temperature.inlet",
     "measure_temperature.outlet",
-    "measure_temperature.storage",
-    "measure_temperature.outdoor",
-
-    "target_temperature.inlet",
-
-    "target_temperature.storage",
-    "thermostat_mode.storage",
 
     "target_temperature.heating_1",
-    "thermostat_mode.heating_1",
+    "ebusd_heating_mode.heating_1",
 
-    "onoff.flame",
-    "onoff.heating_1_pump",
+    "target_temperature.storage",
+    "ebusd_heating_mode.storage",
+    "measure_temperature.storage",
 
-    "measure_pressure.water",
-    "ebusd_heating_curve.heating_1"
+    "ebusd_onoff.flame",
+    "ebusd_heating_blocktime",
+
+    "ebusd_heating_curve.heating_1",
+
+    "ebusd_onoff.heating_1_pump",
+    "measure_pressure.water"
   ],
   "capabilitiesOptions": {
-    "thermostat_mode.storage": {
+    "ebusd_heating_mode.storage": {
       "title": {
         "en": "Heating Mode Storage"
-      },
-      "setable": false,
-      "uiComponent": "sensor",
-      "values": [
-        {
-          "id": "auto",
-          "title": {
-            "en": "Automatic"
-          }
-        },
-        {
-          "id": "manual",
-          "title": {
-            "en": "Manual"
-          }
-        },
-        {
-          "id": "off",
-          "title": {
-            "en": "Off"
-          }
-        }
-      ],
-      "icon": "/assets/mode.svg"
+      }
     },
-    "thermostat_mode.heating_1": {
+    "ebusd_heating_mode.heating_1": {
       "title": {
         "en": "Heating Mode Circuit 1"
-      },
-      "setable": false,
-      "uiComponent": "sensor",
-      "values": [
-        {
-          "id": "auto",
-          "title": {
-            "en": "Automatic"
-          }
-        },
-        {
-          "id": "manual",
-          "title": {
-            "en": "Manual"
-          }
-        },
-        {
-          "id": "off",
-          "title": {
-            "en": "Off"
-          }
-        }
-      ],
-      "icon": "/assets/mode.svg"
+      }
     },
     "measure_pressure.water": {
       "title": {
         "en": "Water Pressure"
       }
     },
-    "onoff.heating_1_pump": {
+    "ebusd_onoff.heating_1_pump": {
       "title": {
         "en": "Pump Circuit 1"
       },
-      "settable": false,
-      "uiQuickAction": false,
-      "uiComponent": "button"
+      "insightsTitleTrue": { "en": "Pump on" },
+      "insightsTitleFalse": { "en": "Pump off" }
     },
-    "onoff.flame": {
+    "ebusd_onoff.flame": {
       "title": {
         "en": "Flame"
       },
-      "settable": false,
-      "uiQuickAction": false,
-      "uiComponent": "button"
+      "insightsTitleTrue": { "en": "Flame on" },
+      "insightsTitleFalse": { "en": "Flame off" }
     },
     "measure_temperature.inlet": {
       "title": {
@@ -121,26 +74,24 @@
         "en": "Storage Temperature"
       }
     },
-    "target_temperature.inlet": {
+    "measure_temperature.target_inlet": {
       "title": {
         "en": "Target Temperature Inlet"
-      },
-      "max": 85,
-      "setable": false
+      }
     },
     "target_temperature.storage": {
       "title": {
         "en": "Target Temperature Storage"
       },
-      "max": 85,
-      "setable": false
+      "min": 0,
+      "max": 85
     },
     "target_temperature.heating_1": {
       "title": {
         "en": "Target Temperature Circuit 1"
       },
-      "max": 85,
-      "setable": false
+      "min": 0,
+      "max": 85
     }
   },
   "platforms": [
@@ -162,27 +113,16 @@
       "template": "add_devices"
     }
   ],
-"settings": [
+  "settings": [
     {
-      "id": "ip",
+      "id": "hostname",
       "type": "text",
       "label": {
-        "en": "IP Address"
+        "en": "Hostname"
       },
       "value": "",
       "hint": {
-        "en": "The internal IP of the device."
-      }
-    },
-    {
-      "id": "port",
-      "type": "text",
-      "label": {
-        "en": "Port"
-      },
-      "value": "80",
-      "hint": {
-        "en": "The port"
+        "en": "The hostname of the device."
       }
     },
     {
@@ -191,7 +131,7 @@
       "label": {
         "en": "Interval"
       },
-      "value": 60,
+      "value": 10,
       "hint": {
         "en": "the refresh interval in seconds, minimum once every 10 seconds"
       }

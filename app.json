@@ -16,6 +16,7 @@
   "category": [
     "climate"
   ],
+  "brandColor": "#00917e",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -33,97 +34,58 @@
       },
       "class": "heater",
       "capabilities": [
+        "measure_temperature.outdoor",
+        "measure_temperature.target_inlet",
         "measure_temperature.inlet",
         "measure_temperature.outlet",
-        "measure_temperature.storage",
-        "measure_temperature.outdoor",
-        "target_temperature.inlet",
-        "target_temperature.storage",
-        "thermostat_mode.storage",
         "target_temperature.heating_1",
-        "thermostat_mode.heating_1",
-        "onoff.flame",
-        "onoff.heating_1_pump",
-        "measure_pressure.water",
-        "ebusd_heating_curve.heating_1"
+        "ebusd_heating_mode.heating_1",
+        "target_temperature.storage",
+        "ebusd_heating_mode.storage",
+        "measure_temperature.storage",
+        "ebusd_onoff.flame",
+        "ebusd_heating_blocktime",
+        "ebusd_heating_curve.heating_1",
+        "ebusd_onoff.heating_1_pump",
+        "measure_pressure.water"
       ],
       "capabilitiesOptions": {
-        "thermostat_mode.storage": {
+        "ebusd_heating_mode.storage": {
           "title": {
             "en": "Heating Mode Storage"
-          },
-          "setable": false,
-          "uiComponent": "sensor",
-          "values": [
-            {
-              "id": "auto",
-              "title": {
-                "en": "Automatic"
-              }
-            },
-            {
-              "id": "manual",
-              "title": {
-                "en": "Manual"
-              }
-            },
-            {
-              "id": "off",
-              "title": {
-                "en": "Off"
-              }
-            }
-          ],
-          "icon": "/assets/mode.svg"
+          }
         },
-        "thermostat_mode.heating_1": {
+        "ebusd_heating_mode.heating_1": {
           "title": {
             "en": "Heating Mode Circuit 1"
-          },
-          "setable": false,
-          "uiComponent": "sensor",
-          "values": [
-            {
-              "id": "auto",
-              "title": {
-                "en": "Automatic"
-              }
-            },
-            {
-              "id": "manual",
-              "title": {
-                "en": "Manual"
-              }
-            },
-            {
-              "id": "off",
-              "title": {
-                "en": "Off"
-              }
-            }
-          ],
-          "icon": "/assets/mode.svg"
+          }
         },
         "measure_pressure.water": {
           "title": {
             "en": "Water Pressure"
           }
         },
-        "onoff.heating_1_pump": {
+        "ebusd_onoff.heating_1_pump": {
           "title": {
             "en": "Pump Circuit 1"
           },
-          "settable": false,
-          "uiQuickAction": false,
-          "uiComponent": "button"
+          "insightsTitleTrue": {
+            "en": "Pump on"
+          },
+          "insightsTitleFalse": {
+            "en": "Pump off"
+          }
         },
-        "onoff.flame": {
+        "ebusd_onoff.flame": {
           "title": {
             "en": "Flame"
           },
-          "settable": false,
-          "uiQuickAction": false,
-          "uiComponent": "button"
+          "insightsTitleTrue": {
+            "en": "Flame on"
+          },
+          "insightsTitleFalse": {
+            "en": "Flame off"
+          }
         },
         "measure_temperature.inlet": {
           "title": {
@@ -145,7 +107,7 @@
             "en": "Storage Temperature"
           }
         },
-        "target_temperature.inlet": {
+        "measure_temperature.target_inlet": {
           "title": {
             "en": "Target Temperature Inlet"
           },
@@ -188,25 +150,14 @@
       ],
       "settings": [
         {
-          "id": "ip",
+          "id": "url",
           "type": "text",
           "label": {
-            "en": "IP Address"
+            "en": "URL"
           },
           "value": "",
           "hint": {
-            "en": "The internal IP of the device."
-          }
-        },
-        {
-          "id": "port",
-          "type": "text",
-          "label": {
-            "en": "Port"
-          },
-          "value": "80",
-          "hint": {
-            "en": "The port"
+            "en": "The URL of the device."
           }
         },
         {
@@ -215,7 +166,7 @@
           "label": {
             "en": "Interval"
           },
-          "value": 60,
+          "value": 10,
           "hint": {
             "en": "the refresh interval in seconds, minimum once every 10 seconds"
           }
@@ -228,20 +179,231 @@
         "xlarge": "/drivers/ebusd-http/assets/images/xlarge.png"
       },
       "id": "ebusd-http"
+    },
+    {
+      "name": {
+        "en": "eBUSd TCP"
+      },
+      "class": "heater",
+      "capabilities": [
+        "measure_temperature.outdoor",
+        "measure_temperature.target_inlet",
+        "measure_temperature.inlet",
+        "measure_temperature.outlet",
+        "target_temperature.heating_1",
+        "ebusd_heating_mode.heating_1",
+        "target_temperature.storage",
+        "ebusd_heating_mode.storage",
+        "measure_temperature.storage",
+        "ebusd_onoff.flame",
+        "ebusd_heating_blocktime",
+        "ebusd_heating_curve.heating_1",
+        "ebusd_onoff.heating_1_pump",
+        "measure_pressure.water"
+      ],
+      "capabilitiesOptions": {
+        "ebusd_heating_mode.storage": {
+          "title": {
+            "en": "Heating Mode Storage"
+          }
+        },
+        "ebusd_heating_mode.heating_1": {
+          "title": {
+            "en": "Heating Mode Circuit 1"
+          }
+        },
+        "measure_pressure.water": {
+          "title": {
+            "en": "Water Pressure"
+          }
+        },
+        "ebusd_onoff.heating_1_pump": {
+          "title": {
+            "en": "Pump Circuit 1"
+          },
+          "insightsTitleTrue": {
+            "en": "Pump on"
+          },
+          "insightsTitleFalse": {
+            "en": "Pump off"
+          }
+        },
+        "ebusd_onoff.flame": {
+          "title": {
+            "en": "Flame"
+          },
+          "insightsTitleTrue": {
+            "en": "Flame on"
+          },
+          "insightsTitleFalse": {
+            "en": "Flame off"
+          }
+        },
+        "measure_temperature.inlet": {
+          "title": {
+            "en": "Inlet Temperature"
+          }
+        },
+        "measure_temperature.outlet": {
+          "title": {
+            "en": "Outlet Temperature"
+          }
+        },
+        "measure_temperature.outdoor": {
+          "title": {
+            "en": "Outdoor Temperature"
+          }
+        },
+        "measure_temperature.storage": {
+          "title": {
+            "en": "Storage Temperature"
+          }
+        },
+        "measure_temperature.target_inlet": {
+          "title": {
+            "en": "Target Temperature Inlet"
+          }
+        },
+        "target_temperature.storage": {
+          "title": {
+            "en": "Target Temperature Storage"
+          },
+          "min": 0,
+          "max": 85
+        },
+        "target_temperature.heating_1": {
+          "title": {
+            "en": "Target Temperature Circuit 1"
+          },
+          "min": 0,
+          "max": 85
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "pair": [
+        {
+          "id": "enter_id"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "id": "hostname",
+          "type": "text",
+          "label": {
+            "en": "Hostname"
+          },
+          "value": "",
+          "hint": {
+            "en": "The hostname of the device."
+          }
+        },
+        {
+          "id": "interval",
+          "type": "number",
+          "label": {
+            "en": "Interval"
+          },
+          "value": 10,
+          "hint": {
+            "en": "the refresh interval in seconds, minimum once every 10 seconds"
+          }
+        }
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/ebusd-tcp/assets/images/small.png",
+        "large": "/drivers/ebusd-tcp/assets/images/large.png",
+        "xlarge": "/drivers/ebusd-tcp/assets/images/xlarge.png"
+      },
+      "id": "ebusd-tcp"
     }
   ],
   "capabilities": {
+    "ebusd_heating_blocktime": {
+      "type": "string",
+      "title": {
+        "en": "Reminaing Block Time"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/time.svg",
+      "insights": false
+    },
     "ebusd_heating_curve": {
       "type": "number",
       "title": {
         "en": "Heating Curve"
       },
       "getable": true,
+      "setable": true,
+      "uiComponent": "sensor",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.1,
+      "decimals": 1,
+      "icon": "/assets/curve.svg",
+      "insights": true
+    },
+    "ebusd_heating_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Heating Mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Automatic"
+          }
+        },
+        {
+          "id": "manual",
+          "title": {
+            "en": "Manual"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        }
+      ],
+      "icon": "/assets/flame.svg"
+    },
+    "ebusd_onoff": {
+      "type": "boolean",
+      "title": {
+        "en": "OnOff"
+      },
+      "getable": true,
       "setable": false,
       "uiComponent": "sensor",
-      "min": 0,
-      "max": 5,
-      "icon": "/assets/curve.svg"
+      "icon": "/assets/mode.svg",
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Turned on"
+      },
+      "insightsTitleFalse": {
+        "en": "Turned off"
+      }
     }
   }
 }
