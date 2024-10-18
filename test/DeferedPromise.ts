@@ -9,7 +9,7 @@ export class DeferedPromise<T> {
   private resolver!: (v: T) => void;
   private rejector!: (e: Error) => void;
 
-  public promise: Promise<T>;
+  public readonly promise: Promise<T>;
 
   constructor() {
     this.promise = new Promise((r, e) => {
