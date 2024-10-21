@@ -27,6 +27,7 @@ export class EBUSDProtocol {
 
   public close() {
     this.client.close();
+    this.connected = false;
   }
 
   public async test() {
