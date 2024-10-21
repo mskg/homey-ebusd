@@ -65,4 +65,5 @@ export class EBUSDProtocol {
 
     return result;
   }
+
 }

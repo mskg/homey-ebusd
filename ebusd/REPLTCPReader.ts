@@ -49,10 +49,12 @@ export class REPLTCPReader {
     const unlock = await this.mutex.lock();
     let result: DeferedPromise<string>;
 
+    let waiters;
+
     try {
       // wait for all existing commands to finish or fail
       // eslint-disable-next-line node/no-unsupported-features/es-builtins
-      await Promise.allSettled(
+      waiters = Promise.allSettled(
         this.replies.map((r) => r.promise),
       );
 
@@ -65,6 +67,9 @@ export class REPLTCPReader {
     if (!m.endsWith(this.commandTermination)) {
       m += this.commandTermination;
     }
+
+    // must not block other threads with Mutex on waiting
+    await waiters;
 
     if (this.debug) {
       console.log('[S]', m);
