@@ -1,7 +1,7 @@
 'use strict';
 
 import Homey from 'homey';
-import { EBUSDProtocol } from '../../test/EBUSDProtocol';
+import { EBUSDProtocol } from '../../ebusd/EBUSDProtocol';
 
 module.exports = class extends Homey.Driver {
 
@@ -24,8 +24,8 @@ module.exports = class extends Homey.Driver {
       this.log('Data', data, 'Devices', devices);
 
       try {
-        const tcpreader = new EBUSDProtocol(data.hostname);
-        await tcpreader.test();
+        const REPLTCPReader = new EBUSDProtocol(data.hostname);
+        await REPLTCPReader.test();
 
         devices = [{
           name: 'eBUSd TCP',

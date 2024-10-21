@@ -30,158 +30,6 @@
   "drivers": [
     {
       "name": {
-        "en": "eBUSd HTTP"
-      },
-      "class": "heater",
-      "capabilities": [
-        "measure_temperature.outdoor",
-        "measure_temperature.target_inlet",
-        "measure_temperature.inlet",
-        "measure_temperature.outlet",
-        "target_temperature.heating_1",
-        "ebusd_heating_mode.heating_1",
-        "target_temperature.storage",
-        "ebusd_heating_mode.storage",
-        "measure_temperature.storage",
-        "ebusd_onoff.flame",
-        "ebusd_heating_blocktime",
-        "ebusd_heating_curve.heating_1",
-        "ebusd_onoff.heating_1_pump",
-        "measure_pressure.water"
-      ],
-      "capabilitiesOptions": {
-        "ebusd_heating_mode.storage": {
-          "title": {
-            "en": "Heating Mode Storage"
-          }
-        },
-        "ebusd_heating_mode.heating_1": {
-          "title": {
-            "en": "Heating Mode Circuit 1"
-          }
-        },
-        "measure_pressure.water": {
-          "title": {
-            "en": "Water Pressure"
-          }
-        },
-        "ebusd_onoff.heating_1_pump": {
-          "title": {
-            "en": "Pump Circuit 1"
-          },
-          "insightsTitleTrue": {
-            "en": "Pump on"
-          },
-          "insightsTitleFalse": {
-            "en": "Pump off"
-          }
-        },
-        "ebusd_onoff.flame": {
-          "title": {
-            "en": "Flame"
-          },
-          "insightsTitleTrue": {
-            "en": "Flame on"
-          },
-          "insightsTitleFalse": {
-            "en": "Flame off"
-          }
-        },
-        "measure_temperature.inlet": {
-          "title": {
-            "en": "Inlet Temperature"
-          }
-        },
-        "measure_temperature.outlet": {
-          "title": {
-            "en": "Outlet Temperature"
-          }
-        },
-        "measure_temperature.outdoor": {
-          "title": {
-            "en": "Outdoor Temperature"
-          }
-        },
-        "measure_temperature.storage": {
-          "title": {
-            "en": "Storage Temperature"
-          }
-        },
-        "measure_temperature.target_inlet": {
-          "title": {
-            "en": "Target Temperature Inlet"
-          },
-          "max": 85,
-          "setable": false
-        },
-        "target_temperature.storage": {
-          "title": {
-            "en": "Target Temperature Storage"
-          },
-          "max": 85,
-          "setable": false
-        },
-        "target_temperature.heating_1": {
-          "title": {
-            "en": "Target Temperature Circuit 1"
-          },
-          "max": 85,
-          "setable": false
-        }
-      },
-      "platforms": [
-        "local"
-      ],
-      "pair": [
-        {
-          "id": "enter_id"
-        },
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "settings": [
-        {
-          "id": "url",
-          "type": "text",
-          "label": {
-            "en": "URL"
-          },
-          "value": "",
-          "hint": {
-            "en": "The URL of the device."
-          }
-        },
-        {
-          "id": "interval",
-          "type": "number",
-          "label": {
-            "en": "Interval"
-          },
-          "value": 10,
-          "hint": {
-            "en": "the refresh interval in seconds, minimum once every 10 seconds"
-          }
-        }
-      ],
-      "connectivity": [],
-      "images": {
-        "small": "/drivers/ebusd-http/assets/images/small.png",
-        "large": "/drivers/ebusd-http/assets/images/large.png",
-        "xlarge": "/drivers/ebusd-http/assets/images/xlarge.png"
-      },
-      "id": "ebusd-http"
-    },
-    {
-      "name": {
         "en": "eBUSd TCP"
       },
       "class": "heater",
@@ -199,9 +47,22 @@
         "ebusd_heating_blocktime",
         "ebusd_heating_curve.heating_1",
         "ebusd_onoff.heating_1_pump",
-        "measure_pressure.water"
+        "measure_pressure.water",
+        "ebusd_onoff.water",
+        "ebusd_hotwater_flow"
       ],
       "capabilitiesOptions": {
+        "ebusd_onoff.water": {
+          "title": {
+            "en": "Heating Mode Storage"
+          },
+          "insightsTitleTrue": {
+            "en": "Water demand on"
+          },
+          "insightsTitleFalse": {
+            "en": "Water demand off"
+          }
+        },
         "ebusd_heating_mode.storage": {
           "title": {
             "en": "Heating Mode Storage"
@@ -387,6 +248,16 @@
         }
       ],
       "icon": "/assets/flame.svg"
+    },
+    "ebusd_hotwater_flow": {
+      "type": "number",
+      "title": {
+        "en": "Hotwater l/m"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/mode.svg"
     },
     "ebusd_onoff": {
       "type": "boolean",

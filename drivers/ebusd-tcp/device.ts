@@ -3,7 +3,7 @@
 import Homey from 'homey';
 // import config from './driver.compose.json';
 import { FIELDS } from './fields';
-import { EBUSDProtocol } from '../../test/EBUSDProtocol';
+import { EBUSDProtocol } from '../../ebusd/EBUSDProtocol';
 
 module.exports = class extends Homey.Device {
 
@@ -11,6 +11,9 @@ module.exports = class extends Homey.Device {
 
   async onInit() {
     this.log('TCP Device has been initialized');
+
+    await this.addCapability("ebusd_onoff.water");
+    await this.addCapability("ebusd_hotwater_flow");
 
     this.registerCapabilityListener(
       'ebusd_heating_curve.heating_1',

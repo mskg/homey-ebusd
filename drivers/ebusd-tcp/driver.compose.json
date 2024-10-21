@@ -22,9 +22,19 @@
     "ebusd_heating_curve.heating_1",
 
     "ebusd_onoff.heating_1_pump",
-    "measure_pressure.water"
+    "measure_pressure.water",
+
+    "ebusd_onoff.water",
+    "ebusd_hotwater_flow"
   ],
   "capabilitiesOptions": {
+    "ebusd_onoff.water": {
+      "title": {
+        "en": "Heating Mode Storage"
+      },
+      "insightsTitleTrue": { "en": "Water demand on" },
+      "insightsTitleFalse": { "en": "Water demand off" }      
+    },
     "ebusd_heating_mode.storage": {
       "title": {
         "en": "Heating Mode Storage"

@@ -8,7 +8,7 @@ import { DeferedPromise } from './DeferedPromise';
 import { Mutex } from './Mutex';
 
 // eslint-disable-next-line import/prefer-default-export
-export class TCPReader {
+export class REPLTCPReader {
 
   private commandTermination = '\n';
   private endSymbol = '\n\n';

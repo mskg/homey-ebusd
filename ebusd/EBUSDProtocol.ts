@@ -4,14 +4,14 @@
 
 'use strict';
 
-import { TCPReader } from './TCPReader';
+import { REPLTCPReader } from './REPLTCPReader';
 
 export class EBUSDProtocol {
 
   connected = false;
   host: string;
   port: number;
-  client = new TCPReader();
+  client = new REPLTCPReader();
 
   constructor(host: string, port = 8888) {
     this.host = host;

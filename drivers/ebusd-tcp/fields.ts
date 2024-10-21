@@ -16,7 +16,9 @@ export type Config = {
 // https://github.com/john30/ebusd-configuration/blob/0d875e33573ff6545bba3577365cc0d8a16e798b/ebusd-2.1.x/de/vaillant/15.430.csv#L2
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const BOOLEAN = (v: any) => v === 'on';
+const BOOLEAN_ON = (v: any) => v === 'on';
+const BOOLEAN_YES = (v: any) => v === 'yes';
+
 const NUMBER = (v: any) => {
   if (typeof (v) === 'number') return v;
   return parseFloat(v);
@@ -93,14 +95,14 @@ export const FIELDS: Array<Config> = [
     circuit: 'bai',
     name: 'Flame',
     target: 'ebusd_onoff.flame',
-    formula: BOOLEAN,
+    formula: BOOLEAN_ON,
   },
   {
     // ok
     circuit: '430',
     name: 'Hc1Pump',
     target: 'ebusd_onoff.heating_1_pump',
-    formula: BOOLEAN,
+    formula: BOOLEAN_ON,
   },
   {
     // ok
@@ -126,4 +128,16 @@ export const FIELDS: Array<Config> = [
     target: 'ebusd_heating_blocktime',
     formula: (v) => `${v}m`,
   },
+  {
+    circuit: 'bai',
+    name: 'HwcWaterflow',
+    target: 'ebusd_hotwater_flow',
+    formula: NUMBER
+  },
+  {
+    circuit: 'bai',
+    name: 'HwcDemand',
+    target: "ebusd_onoff.water",
+    formula: BOOLEAN_YES,
+  }
 ];

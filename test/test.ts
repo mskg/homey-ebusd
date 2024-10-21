@@ -4,7 +4,7 @@
 'use strict';
 
 import { FIELDS } from '../drivers/ebusd-tcp/fields';
-import { EBUSDProtocol } from './EBUSDProtocol';
+import { EBUSDProtocol } from '../ebusd/EBUSDProtocol';
 
 const client = new EBUSDProtocol('vaillant-ebusd.iot.home-arpa');
 
