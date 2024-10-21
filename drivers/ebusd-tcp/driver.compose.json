@@ -30,10 +30,10 @@
   "capabilitiesOptions": {
     "ebusd_onoff.water": {
       "title": {
-        "en": "Heating Mode Storage"
+        "en": "Water demand?"
       },
       "insightsTitleTrue": { "en": "Water demand on" },
-      "insightsTitleFalse": { "en": "Water demand off" }      
+      "insightsTitleFalse": { "en": "Water demand off" }
     },
     "ebusd_heating_mode.storage": {
       "title": {
@@ -52,14 +52,14 @@
     },
     "ebusd_onoff.heating_1_pump": {
       "title": {
-        "en": "Pump Circuit 1"
+        "en": "Pump Circuit 1 on?"
       },
       "insightsTitleTrue": { "en": "Pump on" },
       "insightsTitleFalse": { "en": "Pump off" }
     },
     "ebusd_onoff.flame": {
       "title": {
-        "en": "Flame"
+        "en": "Flame on?"
       },
       "insightsTitleTrue": { "en": "Flame on" },
       "insightsTitleFalse": { "en": "Flame off" }

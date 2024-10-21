@@ -54,7 +54,7 @@
       "capabilitiesOptions": {
         "ebusd_onoff.water": {
           "title": {
-            "en": "Heating Mode Storage"
+            "en": "Water demand?"
           },
           "insightsTitleTrue": {
             "en": "Water demand on"
@@ -80,7 +80,7 @@
         },
         "ebusd_onoff.heating_1_pump": {
           "title": {
-            "en": "Pump Circuit 1"
+            "en": "Pump Circuit 1 on?"
           },
           "insightsTitleTrue": {
             "en": "Pump on"
@@ -91,7 +91,7 @@
         },
         "ebusd_onoff.flame": {
           "title": {
-            "en": "Flame"
+            "en": "Flame on?"
           },
           "insightsTitleTrue": {
             "en": "Flame on"
