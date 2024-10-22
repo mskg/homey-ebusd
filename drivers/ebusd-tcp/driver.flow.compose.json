@@ -1,0 +1,116 @@
+{
+  "actions": [
+    {
+      "id": "set-ebusd_heating_mode-storage",
+      "title": {
+        "en": "Set Heating Mode Storage"
+      },
+      "titleFormatted": {
+        "en": "Set Heating Mode Storage to [[mode]]"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "values": [
+            {
+              "id": "auto",
+              "title": {
+                "en": "Automatic"
+              }
+            },
+            {
+              "id": "manual",
+              "title": {
+                "en": "Manual"
+              }
+            },
+            {
+              "id": "off",
+              "title": {
+                "en": "Off"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "set-ebusd_heating_mode-heating_1",
+      "title": {
+        "en": "Set Heating Mode Circuit 1"
+      },
+      "titleFormatted": {
+        "en": "Set Heating Mode Circuit 1 to [[mode]]"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "mode",
+          "values": [
+            {
+              "id": "auto",
+              "title": {
+                "en": "Automatic"
+              }
+            },
+            {
+              "id": "manual",
+              "title": {
+                "en": "Manual"
+              }
+            },
+            {
+              "id": "off",
+              "title": {
+                "en": "Off"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "set-target_temperature-storage",
+      "title": {
+        "en": "Set Target Temperature Storage"
+      },
+      "titleFormatted": {
+        "en": "Set Target Temperature Storage to [[temperature]]"
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "temperature",
+          "placeholder": {
+            "en": "60"
+          },
+          "min": 50,
+          "max": 85,
+          "step": 0.1
+        }
+      ]
+    },
+    {
+      "id": "set-target_temperature-heating_1",
+      "title": {
+        "en": "Set Target Temperature Circuit 1"
+      },
+      "titleFormatted": {
+        "en": "Set Target Temperature Circuit 1 to [[temperature]]"
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "temperature",
+          "placeholder": {
+            "en": "60"
+          },
+          "min": 0,
+          "max": 85,
+          "step": 0.1
+        }
+      ]
+    }    
+  ]
+}

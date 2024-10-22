@@ -12,9 +12,6 @@ module.exports = class extends Homey.Device {
   async onInit() {
     this.log('TCP Device has been initialized');
 
-    await this.addCapability("ebusd_onoff.water");
-    await this.addCapability("ebusd_hotwater_flow");
-
     this.registerCapabilityListener(
       'ebusd_heating_curve.heating_1',
       this.createDefaultWriteFunction('ebusd_heating_curve.heating_1'),
@@ -54,11 +51,41 @@ module.exports = class extends Homey.Device {
       this.createDefaultWriteFunction('ebusd_heating_mode.storage'),
     );
 
-    await this.startPolling();
-  }
+    /// flow
+    this.homey.flow
+      .getActionCard('set-ebusd_heating_mode-storage')
+      .registerRunListener(
+        async (args, _state) => this.runWithClient(
+          async (client) => this.writeCapability(client, 'ebusd_heating_mode.storage', args.mode),
+        ),
+      );
 
-  async onAdded() {
-    this.log('TCP Device has been added');
+    this.homey.flow
+      .getActionCard('set-ebusd_heating_mode-heating_1')
+      .registerRunListener(
+        async (args, _state) => this.runWithClient(
+          async (client) => this.writeCapability(client, 'ebusd_heating_mode.heating_1', args.mode),
+        ),
+      );
+
+    this.homey.flow
+      .getActionCard('set-target_temperature-storage')
+      .registerRunListener(
+        async (args, _state) => this.runWithClient(
+          async (client) => client.write('430', 'HwcManualOPTempDesired', args.temperature),
+        ),
+      );
+
+    this.homey.flow
+      .getActionCard('set-target_temperature-heating_1')
+      .registerRunListener(
+        async (args, _state) => this.runWithClient(
+          async (client) => client.write('430', 'Hc1ManualOPRoomTempDesired', args.temperature),
+        ),
+      );
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.driver.ready().then(this.startPolling.bind(this));
   }
 
   async onSettings({
@@ -74,31 +101,14 @@ module.exports = class extends Homey.Device {
     await this.startPolling();
   }
 
-  async startPolling() {
-    // Clear any existing intervals
-    if (this.pollingTask) this.homey.clearInterval(this.pollingTask);
-
-    const refreshInterval = this.getSetting('interval') < 10
-      ? 10 // refresh interval in seconds minimum 10
-      : this.getSetting('interval');
-
-    this.log('Interval is', refreshInterval);
-
-    // Set up a new interval
-    this.pollingTask = this.homey.setInterval(this.fetchData.bind(this), refreshInterval * 1000);
-
-    await this.fetchData();
-  }
-
   async runWithClient(func: (client: EBUSDProtocol) => Promise<void>) {
     let client!: EBUSDProtocol;
     try {
       const hostname = this.getSetting('hostname');
-      client = new EBUSDProtocol(hostname);
+      client = new EBUSDProtocol(hostname, undefined, this.homey);
       await func(client);
-      client.close();
     } catch (error) {
-      this.error('Failed to fetch data:', error);
+      this.error('Client failure', error);
     } finally {
       client.close();
     }
@@ -118,11 +128,29 @@ module.exports = class extends Homey.Device {
   createDefaultWriteFunction<T extends string | number>(capability: string) {
     return async (value: T) => this.runWithClient(async (client) => {
       try {
-        await this.writeCapability(client, capability, value);
+        // flow passes arguments as array
+        const arg = value.constructor === Array ? value[0] : value;
+        await this.writeCapability(client, capability, arg);
       } catch (e) {
         this.error('Could not write', capability, e);
       }
     });
+  }
+
+  async startPolling() {
+    // Clear any existing intervals
+    if (this.pollingTask) this.homey.clearInterval(this.pollingTask);
+
+    const refreshInterval = this.getSetting('interval') < 10
+      ? 10 // refresh interval in seconds minimum 10
+      : this.getSetting('interval');
+
+    this.log('Interval is', refreshInterval);
+
+    // Set up a new interval
+    this.pollingTask = this.homey.setInterval(this.fetchData.bind(this), refreshInterval * 1000);
+
+    await this.fetchData();
   }
 
   async fetchData() {
@@ -136,7 +164,7 @@ module.exports = class extends Homey.Device {
         }
 
         try {
-          this.log('Mapping', f.circuit, f.name, f.field, 'to', f.target, 'with', value);
+          this.log('Mapping', f.target, 'to', f.circuit, f.field ? `${f.name} (${f.field})` : f.name, 'value', value);
           await this.setCapabilityValue(f.target, value);
         } catch (e) {
           this.error('Could not set', f.target, e);

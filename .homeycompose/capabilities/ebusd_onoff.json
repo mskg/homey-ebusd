@@ -3,14 +3,15 @@
   "title": {
     "en": "OnOff"
   },
-  
   "getable": true,
   "setable": false,
-  
   "uiComponent": "sensor",
   "icon": "/assets/mode.svg",
-
   "insights": true,
-  "insightsTitleTrue": { "en": "Turned on" },  
-  "insightsTitleFalse": { "en": "Turned off" }
+  "insightsTitleTrue": {
+    "en": "Turned on"
+  },
+  "insightsTitleFalse": {
+    "en": "Turned off"
+  }
 }
