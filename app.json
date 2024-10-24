@@ -28,6 +28,64 @@
     "email": "markus.kling@gmail.com"
   },
   "flow": {
+    "triggers": [
+      {
+        "id": "ebusd_onoff-flame_true",
+        "highlight": true,
+        "title": {
+          "en": "Flame turned on"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ebusd-tcp"
+          }
+        ]
+      },
+      {
+        "id": "ebusd_onoff-flame_false",
+        "highlight": true,
+        "title": {
+          "en": "Flame turned off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ebusd-tcp"
+          }
+        ]
+      },
+      {
+        "id": "ebusd_onoff-heating_1_pump_true",
+        "highlight": true,
+        "title": {
+          "en": "Pump Circuit 1 turned on"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ebusd-tcp"
+          }
+        ]
+      },
+      {
+        "id": "ebusd_onoff-heating_1_pump_false",
+        "highlight": true,
+        "title": {
+          "en": "Pump Circuit 1 turned off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ebusd-tcp"
+          }
+        ]
+      }
+    ],
     "actions": [
       {
         "id": "set-ebusd_heating_mode-storage",
@@ -183,22 +241,9 @@
         "ebusd_heating_blocktime",
         "ebusd_heating_curve.heating_1",
         "ebusd_onoff.heating_1_pump",
-        "measure_pressure.water",
-        "ebusd_onoff.water",
-        "ebusd_hotwater_flow"
+        "measure_pressure.water"
       ],
       "capabilitiesOptions": {
-        "ebusd_onoff.water": {
-          "title": {
-            "en": "Water demand?"
-          },
-          "insightsTitleTrue": {
-            "en": "Water demand on"
-          },
-          "insightsTitleFalse": {
-            "en": "Water demand off"
-          }
-        },
         "ebusd_heating_mode.storage": {
           "title": {
             "en": "Heating Mode Storage"
@@ -384,16 +429,6 @@
         }
       ],
       "icon": "/assets/flame.svg"
-    },
-    "ebusd_hotwater_flow": {
-      "type": "number",
-      "title": {
-        "en": "Hotwater l/m"
-      },
-      "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "icon": "/assets/mode.svg"
     },
     "ebusd_onoff": {
       "type": "boolean",

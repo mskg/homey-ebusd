@@ -9,6 +9,12 @@ module.exports = class extends Homey.Device {
 
   pollingTask: NodeJS.Timeout | undefined;
 
+  flameOnTrigger!: Homey.FlowCardTriggerDevice;
+  flameOffTrigger!: Homey.FlowCardTriggerDevice;
+
+  pumpHC1OnTrigger!: Homey.FlowCardTriggerDevice;
+  pumpHC1OffTrigger!: Homey.FlowCardTriggerDevice;
+
   async onInit() {
     this.log('TCP Device has been initialized');
 
@@ -43,7 +49,7 @@ module.exports = class extends Homey.Device {
 
     this.registerCapabilityListener(
       'ebusd_heating_mode.heating_1',
-      this.createDefaultWriteFunction('ebusd_heating_curve.heating_1'),
+      this.createDefaultWriteFunction('ebusd_heating_mode.heating_1'),
     );
 
     this.registerCapabilityListener(
@@ -83,6 +89,12 @@ module.exports = class extends Homey.Device {
           async (client) => client.write('430', 'Hc1ManualOPRoomTempDesired', args.temperature),
         ),
       );
+
+    this.flameOnTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-flame_true');
+    this.flameOffTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-flame_false');
+
+    this.pumpHC1OnTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-heating_1_pump_true');
+    this.pumpHC1OffTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-heating_1_pump_false');
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.driver.ready().then(this.startPolling.bind(this));
@@ -154,6 +166,9 @@ module.exports = class extends Homey.Device {
   }
 
   async fetchData() {
+    const pump = this.getCapabilityValue('ebusd_onoff.heating_1_pump');
+    const flame = this.getCapabilityValue('ebusd_onoff.flame');
+
     await this.runWithClient(async (client) => {
       const waits = FIELDS.map(async (f) => {
         let value = await client.read(f.circuit, f.name, f.field);
@@ -173,6 +188,24 @@ module.exports = class extends Homey.Device {
 
       await Promise.all(waits);
     });
+
+    if (this.getCapabilityValue('ebusd_onoff.heating_1_pump') !== pump) {
+      // inverted now
+      if (pump) {
+        await this.pumpHC1OffTrigger.trigger(this);
+      } else {
+        await this.pumpHC1OnTrigger.trigger(this);
+      }
+    }
+
+    if (this.getCapabilityValue('ebusd_onoff.flame') !== flame) {
+      // inverted now
+      if (flame) {
+        await this.flameOffTrigger.trigger(this);
+      } else {
+        await this.flameOnTrigger.trigger(this);
+      }
+    }
   }
 
   onDeleted() {

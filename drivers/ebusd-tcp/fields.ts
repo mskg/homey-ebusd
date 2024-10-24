@@ -127,17 +127,5 @@ export const FIELDS: Array<Config> = [
     field: 'minutes0',
     target: 'ebusd_heating_blocktime',
     formula: (v) => `${v}m`,
-  },
-  {
-    circuit: 'bai',
-    name: 'HwcWaterflow',
-    target: 'ebusd_hotwater_flow',
-    formula: NUMBER
-  },
-  {
-    circuit: 'bai',
-    name: 'HwcDemand',
-    target: "ebusd_onoff.water",
-    formula: BOOLEAN_YES,
   }
 ];
