@@ -80,7 +80,7 @@ export const FIELDS: Array<Config> = [
     // ok
     circuit: '430',
     name: 'ActualRoomTempDesiredHc1',
-    field: 'temp',
+    // field: 'temp',
     target: 'target_temperature.heating_1',
     formula: NUMBER,
   },
@@ -116,7 +116,7 @@ export const FIELDS: Array<Config> = [
     // ok
     circuit: '430',
     name: 'Hc1HeatCurve',
-    field: 'curve',
+    // field: 'curve',
     target: 'ebusd_heating_curve.heating_1',
     formula: NUMBER,
   },
@@ -124,8 +124,19 @@ export const FIELDS: Array<Config> = [
     // ok
     circuit: 'bai',
     name: 'RemainingBoilerblocktime',
-    field: 'minutes0',
+    // field: 'minutes0',
     target: 'ebusd_heating_blocktime',
     formula: (v) => `${v}m`,
-  }
+  },
+  {
+    circuit: 'bai',
+    name: 'PumpPowerDesired',
+    target: 'ebusd_pump_power_mode',
+  },
+  {
+    circuit: 'bai',
+    name: 'PumpPower',
+    target: 'ebusd_pump_power',
+    formula: NUMBER,
+  },
 ];

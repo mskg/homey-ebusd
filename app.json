@@ -241,7 +241,9 @@
         "ebusd_heating_blocktime",
         "ebusd_heating_curve.heating_1",
         "ebusd_onoff.heating_1_pump",
-        "measure_pressure.water"
+        "measure_pressure.water",
+        "ebusd_pump_power_mode",
+        "ebusd_pump_power"
       ],
       "capabilitiesOptions": {
         "ebusd_heating_mode.storage": {
@@ -261,7 +263,7 @@
         },
         "ebusd_onoff.heating_1_pump": {
           "title": {
-            "en": "Pump Circuit 1 on?"
+            "en": "Pump Circuit 1"
           },
           "insightsTitleTrue": {
             "en": "Pump on"
@@ -272,7 +274,7 @@
         },
         "ebusd_onoff.flame": {
           "title": {
-            "en": "Flame on?"
+            "en": "Flame"
           },
           "insightsTitleTrue": {
             "en": "Flame on"
@@ -446,6 +448,69 @@
       "insightsTitleFalse": {
         "en": "Turned off"
       }
+    },
+    "ebusd_pump_power": {
+      "type": "number",
+      "title": {
+        "en": "Pump Power"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "decimals": 1,
+      "icon": "/assets/pump.svg",
+      "insights": true
+    },
+    "ebusd_pump_power_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Desired Pump Power"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Automatic"
+          }
+        },
+        {
+          "id": "_53",
+          "title": {
+            "en": "53%"
+          }
+        },
+        {
+          "id": "_60",
+          "title": {
+            "en": "60%"
+          }
+        },
+        {
+          "id": "_70",
+          "title": {
+            "en": "70%"
+          }
+        },
+        {
+          "id": "_85",
+          "title": {
+            "en": "85%"
+          }
+        },
+        {
+          "id": "_100",
+          "title": {
+            "en": "100%"
+          }
+        }
+      ],
+      "icon": "/assets/pump.svg"
     }
   }
 }

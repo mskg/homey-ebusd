@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Pump Power"
+  },
+
+  "getable": true,
+  "setable": false,
+  
+  "uiComponent": "sensor",
+  
+  "min": 0,
+  "max": 100,
+  "step": 0.1,
+  "decimals": 1,
+
+  "icon": "/assets/pump.svg",
+  "insights": true
+}

@@ -1,0 +1,51 @@
+{
+  "type": "enum",
+
+  "title": {
+    "en": "Desired Pump Power"
+  },
+  
+  "getable": true,
+  "setable": true,
+
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic"
+      }
+    },
+    {
+      "id": "_53",
+      "title": {
+        "en": "53%"
+      }
+    },
+    {
+      "id": "_60",
+      "title": {
+        "en": "60%"
+      }
+    },
+    {
+      "id": "_70",
+      "title": {
+        "en": "70%"
+      }
+    },
+    {
+      "id": "_85",
+      "title": {
+        "en": "85%"
+      }
+    },
+    {
+      "id": "_100",
+      "title": {
+        "en": "100%"
+      }
+    }
+  ],
+  "icon": "/assets/pump.svg"
+}

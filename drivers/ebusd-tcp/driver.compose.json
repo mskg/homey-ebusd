@@ -22,7 +22,10 @@
     "ebusd_heating_curve.heating_1",
 
     "ebusd_onoff.heating_1_pump",
-    "measure_pressure.water"
+    "measure_pressure.water",
+
+    "ebusd_pump_power_mode",
+    "ebusd_pump_power"
   ],
   "capabilitiesOptions": {   
     "ebusd_heating_mode.storage": {
@@ -42,14 +45,14 @@
     },
     "ebusd_onoff.heating_1_pump": {
       "title": {
-        "en": "Pump Circuit 1 on?"
+        "en": "Pump Circuit 1"
       },
       "insightsTitleTrue": { "en": "Pump on" },
       "insightsTitleFalse": { "en": "Pump off" }
     },
     "ebusd_onoff.flame": {
       "title": {
-        "en": "Flame on?"
+        "en": "Flame"
       },
       "insightsTitleTrue": { "en": "Flame on" },
       "insightsTitleFalse": { "en": "Flame off" }

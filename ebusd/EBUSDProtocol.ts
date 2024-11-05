@@ -58,7 +58,8 @@ export class EBUSDProtocol {
     const command = `write -c ${circuit} ${name} ${value}`;
     const result = this.trimResult(await this.client.send(command));
 
-    if (result !== 'done') {
+    // eslint-disable-next-line eqeqeq
+    if (result !== 'done' && result != value) {
       this.log?.error('Received', result);
       throw result;
     }

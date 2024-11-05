@@ -90,6 +90,11 @@ module.exports = class extends Homey.Device {
         ),
       );
 
+    this.registerCapabilityListener(
+      'ebusd_pump_power_mode',
+      this.createDefaultWriteFunction('ebusd_pump_power_mode'),
+    );
+
     this.flameOnTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-flame_true');
     this.flameOffTrigger = this.homey.flow.getDeviceTriggerCard('ebusd_onoff-flame_false');
 
