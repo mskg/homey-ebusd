@@ -126,7 +126,7 @@ export const FIELDS: Array<Config> = [
     name: 'RemainingBoilerblocktime',
     // field: 'minutes0',
     target: 'ebusd_heating_blocktime',
-    formula: (v) => `${v}m`,
+    formula: NUMBER,
   },
   {
     circuit: 'bai',
@@ -137,6 +137,12 @@ export const FIELDS: Array<Config> = [
     circuit: 'bai',
     name: 'PumpPower',
     target: 'ebusd_pump_power',
+    formula: NUMBER,
+  },
+  {
+    circuit: 'bai',
+    name: 'ModulationTempDesired',
+    target: 'ebusd_modulation_setpoint',
     formula: NUMBER,
   },
 ];

@@ -1,7 +1,7 @@
 {
   "type": "number",
   "title": {
-    "en": "Pump Power"
+    "en": "Modulation Temperature"
   },
 
   "getable": true,
@@ -15,6 +15,6 @@
   "decimals": 1,
   "units": "%",
 
-  "icon": "/assets/pump.svg",
+  "icon": "/assets/flame.svg",
   "insights": true
 }
